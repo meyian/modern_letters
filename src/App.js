@@ -9,9 +9,11 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch,
-  useParams,
 } from "react-router-dom";
+
+import Andre12Aug from './andre/12_aug';
+import Andre18Aug from './andre/18_sep';
+import Rushing from './waheed/rushing'
 
 // TODO: For Wyatt (SO INAGAWA - AIRIER (CABARET RECORDINGS))
 const BorderedPage = ({children, borderColor, left, right}) => (
@@ -55,14 +57,23 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/re-two-crespuscular-thoughts">
+          <Andre18Aug />
+        </Route>
+        <Route path="/two-crespuscular-thoughts">
+          <Andre12Aug />
+        </Route>
+        <Route path="/waheed-dey-rush">
+          <Rushing />
+        </Route>
         <Route path="/red">
-        <BorderedPage borderColor="red" left="black" right="blue">Red</BorderedPage>
+        <BorderedPage borderColor="red" left="black" right="blue">Modern</BorderedPage>
         </Route>
         <Route path="/blue">
-          <BorderedPage borderColor="blue" left="red" right="black">Blue</BorderedPage>
+          <BorderedPage borderColor="blue" left="red" right="black">Letters</BorderedPage>
         </Route>
         <Route path="/">
-          <BorderedPage borderColor="black" left="blue" right="red">Black</BorderedPage>
+          <BorderedPage borderColor="black" left="blue" right="red">Fancy</BorderedPage>
         </Route>
       </Switch>
     </Router>
