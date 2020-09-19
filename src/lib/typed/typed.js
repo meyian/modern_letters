@@ -82,7 +82,7 @@ export default class Typed {
     }
   }
 
-  /**
+  /** #bookmark
    * Begins the typing animation
    * @private
    */
@@ -103,6 +103,7 @@ export default class Typed {
     }, this.startDelay);
   }
 
+  // #bookmark
   /**
    * Called for each character typed
    * @param {string} curString the current string in the strings array
@@ -174,6 +175,7 @@ export default class Typed {
 
         // We're done with this sentence!
         if (curStrPos >= curString.length) {
+          console.log('doneTyping')
           this.doneTyping(curString, curStrPos);
         } else {
           this.keepTyping(curString, curStrPos, numChars);
@@ -229,9 +231,10 @@ export default class Typed {
         return;
       }
     }
-    this.timeout = setTimeout(() => {
-      this.backspace(curString, curStrPos);
-    }, this.backDelay);
+    // #bookmark workin
+    // this.timeout = setTimeout(() => {
+    //   this.backspace(curString, curStrPos);
+    // }, this.backDelay);
   }
 
   /**

@@ -14,6 +14,7 @@ const words = [
   'Spring twilight'
 ]
 
+var elem;
 
 class Typing extends React.Component {
   componentDidMount() {
@@ -25,6 +26,8 @@ class Typing extends React.Component {
       cursorChar: "|",
     };
     // this.el refers to the <span> in the render() method
+    elem = this;
+    console.log(elem);
     this.typed = new Typed(this.el, options);
   }
 componentWillUnmount() {
@@ -36,6 +39,7 @@ componentWillUnmount() {
     return (
       <div>
         <span
+          id="span"
           style={{ whiteSpace: "pre" }}
           ref={(el) => {
             this.el = el;
@@ -77,5 +81,15 @@ const Index = () => {
 };
 
 export default Index;
+
+*/
+
+/*
+
+Todo
+
+* Get typed.js to stop when I want it
+  - get it to stop
+  - get it to continue when you call next()
 
 */
