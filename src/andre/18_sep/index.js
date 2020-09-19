@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { jsx } from "@emotion/core";
 import css from "@emotion/css/macro";
@@ -14,40 +14,39 @@ const words = [
   'Spring twilight'
 ]
 
-var elem;
+const Typing = () => {
 
-class Typing extends React.Component {
-  componentDidMount() {
-    const options = {
-      strings: words,
-      typeSpeed: 50,
-      backSpeed: 50,
-      loop: true,
-      cursorChar: "|",
-    };
+  const options = {
+    strings: words,
+    typeSpeed: 50,
+    backSpeed: 50,
+    loop: true,
+    cursorChar: "|",
+  };
+
+  const typedSpan = useRef();
+
     // this.el refers to the <span> in the render() method
-    elem = this;
-    console.log(elem);
-    this.typed = new Typed(this.el, options);
-  }
-componentWillUnmount() {
+
+  useEffect(() =>{
+    const elem = typedSpan.current;
+    elem.typed = new Typed(elem, options);
+
     // Please don't forget to cleanup animation layer
-    this.typed.destroy();
-  }
+    return () => {
+      elem.typed.destroy();
+    }
+  }, [options])
   
-  render() {
-    return (
-      <div>
-        <span
-          id="span"
-          style={{ whiteSpace: "pre" }}
-          ref={(el) => {
-            this.el = el;
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <span
+        id="span"
+        style={{ whiteSpace: "pre" }}
+        ref={typedSpan}
+      />
+    </div>
+  );
 }
 export default Typing;
 
