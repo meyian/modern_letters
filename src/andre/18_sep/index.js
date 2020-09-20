@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { jsx } from "@emotion/core";
 import css from "@emotion/css/macro";
 
-import Typed from "../../lib/typed/typed.js";
+import Typing from "../../shared_components/typing";
 import BorderedWord from "../../shared_components/bordered_word";
 
 const words = [
@@ -14,41 +14,13 @@ const words = [
   'Spring twilight'
 ]
 
-const Typing = () => {
-
-  const options = {
-    strings: words,
-    typeSpeed: 50,
-    backSpeed: 50,
-    loop: true,
-    cursorChar: "|",
-  };
-
-  const typedSpan = useRef();
-
-    // this.el refers to the <span> in the render() method
-
-  useEffect(() =>{
-    const elem = typedSpan.current;
-    elem.typed = new Typed(elem, options);
-
-    // Please don't forget to cleanup animation layer
-    return () => {
-      elem.typed.destroy();
-    }
-  }, [options])
+const Index = () => {
   
   return (
-    <div>
-      <span
-        id="span"
-        style={{ whiteSpace: "pre" }}
-        ref={typedSpan}
-      />
-    </div>
+    <Typing words={words} />
   );
 }
-export default Typing;
+export default Index;
 
 /*
 
