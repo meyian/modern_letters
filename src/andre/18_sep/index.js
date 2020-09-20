@@ -15,9 +15,18 @@ const words = [
 ]
 
 const Index = () => {
+
+  const typingRef = useRef();
+  // const [typingRef, setTypingRef] = useState();
   
   return (
-    <Typing words={words} />
+    <div>
+      <button onClick={() => void typingRef.current.unpause()}>start</button>
+      <button onClick={() => void console.log(typingRef)}>print to console</button>
+      <Typing words={words} onSetRef={(ref) => {
+        typingRef.current = ref
+      }} />
+    </div>
   );
 }
 export default Index;

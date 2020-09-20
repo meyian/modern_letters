@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { jsx } from "@emotion/core";
 import Typed from "../lib/typed/typed.js";
 
-const Typing = ({options, words}) => {
+const Typing = ({options, words, onSetRef}) => {
 
   words = words || []
 
@@ -24,6 +24,7 @@ const Typing = ({options, words}) => {
   useEffect(() =>{
     const elem = typedSpan.current;
     elem.typed = new Typed(elem, options);
+    onSetRef(elem.typed);
 
     // Please don't forget to cleanup animation layer
     return () => {

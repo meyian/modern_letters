@@ -35,11 +35,22 @@ export default class Typed {
     this.options.onStop(this.arrayPos, this);
   }
 
+      // #bookmark workin
+    // this.timeout = setTimeout(() => {
+    //   this.backspace(curString, curStrPos);
+    // }, this.backDelay);
+  unpause() {
+    console.log("unpause")
+    this.backspace(this.curString, this.curStrPos);
+  }
+
   /**
    * Start typing / backspacing after being stopped
    * @public
    */
   start() {
+    console.log('starting')
+
     if (this.typingComplete) return;
     if (!this.pause.status) return;
     this.pause.status = false;
@@ -235,6 +246,8 @@ export default class Typed {
     // this.timeout = setTimeout(() => {
     //   this.backspace(curString, curStrPos);
     // }, this.backDelay);
+    this.curString = curString;
+    this.curStrPos = curStrPos;
   }
 
   /**
