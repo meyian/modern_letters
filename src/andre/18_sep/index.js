@@ -21,11 +21,11 @@ const Index = () => {
   
   return (
     <div>
-      <button onClick={() => void typingRef.current.unpause()}>start</button>
-      <button onClick={() => void console.log(typingRef)}>print to console</button>
       <Typing words={words} onSetRef={(ref) => {
         typingRef.current = ref
       }} />
+      <button onClick={() => void typingRef.current.rewind()}>previous</button>
+      <button onClick={() => void typingRef.current.unpause()}>next</button>
     </div>
   );
 }

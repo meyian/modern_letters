@@ -35,13 +35,20 @@ export default class Typed {
     this.options.onStop(this.arrayPos, this);
   }
 
-      // #bookmark workin
+      // #bookmark
     // this.timeout = setTimeout(() => {
     //   this.backspace(curString, curStrPos);
     // }, this.backDelay);
   unpause() {
-    console.log("unpause")
+    this.sequenceDirection = 1;
     this.backspace(this.curString, this.curStrPos);
+  }
+
+  rewind() {
+    if (this.arrayPos > 0){
+      this.sequenceDirection = -1;
+      this.backspace(this.curString, this.curStrPos);
+    }
   }
 
   /**
@@ -49,8 +56,6 @@ export default class Typed {
    * @public
    */
   start() {
-    console.log('starting')
-
     if (this.typingComplete) return;
     if (!this.pause.status) return;
     this.pause.status = false;
@@ -98,6 +103,7 @@ export default class Typed {
    * @private
    */
   begin() {
+    this.sequenceDirection = 1;
     this.options.onBegin(this);
     this.typingComplete = false;
     this.shuffleStringsIfNeeded(this);
@@ -186,7 +192,6 @@ export default class Typed {
 
         // We're done with this sentence!
         if (curStrPos >= curString.length) {
-          console.log('doneTyping')
           this.doneTyping(curString, curStrPos);
         } else {
           this.keepTyping(curString, curStrPos, numChars);
@@ -242,7 +247,7 @@ export default class Typed {
         return;
       }
     }
-    // #bookmark workin
+    // #bookmark
     // this.timeout = setTimeout(() => {
     //   this.backspace(curString, curStrPos);
     // }, this.backDelay);
@@ -256,6 +261,7 @@ export default class Typed {
    * @param {number} curStrPos the current position in the curString
    * @private
    */
+  // #bookmark workin
   backspace(curString, curStrPos) {
     if (this.pause.status === true) {
       this.setPauseStatus(curString, curStrPos, true);
@@ -296,7 +302,7 @@ export default class Typed {
       } else if (curStrPos <= this.stopNum) {
         // if the stop number has been reached, increase
         // array position to next string
-        this.arrayPos++;
+        this.arrayPos += this.sequenceDirection;
         // When looping, begin at the beginning after backspace complete
         if (this.arrayPos === this.strings.length) {
           this.arrayPos = 0;
@@ -309,6 +315,11 @@ export default class Typed {
       }
       // humanized value for typing
     }, humanize);
+  }
+
+  // workin
+  setSequenceDirection(delta){
+    this.sequenceDirection = delta;
   }
 
   /**
