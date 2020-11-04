@@ -1,18 +1,18 @@
 /** @jsx jsx */
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 import { jsx } from "@emotion/core";
 import Typed from "../lib/typed/typed.js";
 
-const Typing = ({options, words, onSetRef}) => {
+const Typing = ({className, options, words, onSetRef}) => {
 
   words = words || []
 
   options = options || {
     strings: words,
-    typeSpeed: 50,
-    backSpeed: 50,
+    typeSpeed: 20,
+    backSpeed: 5,
     loop: true,
     cursorChar: "|",
   };
@@ -30,12 +30,11 @@ const Typing = ({options, words, onSetRef}) => {
     return () => {
       elem.typed.destroy();
     }
-  }, [options])
+  })
   
   return (
-    <div>
+    <div className={className}>
       <span
-        style={{ whiteSpace: "pre" }}
         ref={typedSpan}
       />
     </div>

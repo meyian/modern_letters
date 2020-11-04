@@ -34,6 +34,10 @@ const Option = ({ children, onClick }) => {
   return <button onClick={onClick}>{children}</button>;
 };
 
+const saveData = () => {
+  // push data to endpoint
+}
+
 const pointsPerAnswer = 5;
 const selectedPlayers = getSelectedPlayers();
 
@@ -57,6 +61,7 @@ export default ({ onClickNext }) => {
       setCurrentQuestionNum(currentQuestionNum + 1);
     }
     else{
+      saveData();
       setShowNext(true);
     }
   };
@@ -96,3 +101,18 @@ export default ({ onClickNext }) => {
     </div>
   );
 };
+
+/*
+
+Todo:
+
+* Create Hasura project for Waheed, stop rushing
+* Post data to save that shit
+* Load data on the leaderboard page
+* Polish the game page
+* Polish the leaderboard page
+* Add video to the first page
+* Last looks
+* Launch
+
+*/

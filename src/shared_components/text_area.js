@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { jsx } from "@emotion/core";
 import css from "@emotion/css/macro";
 
