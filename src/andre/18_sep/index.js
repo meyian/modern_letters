@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 import { jsx } from "@emotion/core";
 import css from "@emotion/css/macro";
@@ -42,12 +42,21 @@ const Index = () => {
   const typingRef = useRef();
   const previousBtnRef = useRef();
   const nextBtnRef = useRef();
+  const image1Ref = useRef();
 
-  const image1 = sentenceNum === 1 && <AnimatedImage css={css`
-    position: absolute;
-    left: 300px;
-    top: 0;
-  `} src={image1Src} />;
+  const image1 = (
+    <AnimatedImage
+      ref={image1Ref}
+      css={css`
+        position: absolute;
+        left: 300px;
+        top: 0;
+      `}
+      src={image1Src}
+    />
+  );
+
+  const imageObjs = [{ index: 1, ref: image1Ref }];
 
   const blurBtns = () => {
     console.log("blurring");
@@ -65,6 +74,26 @@ const Index = () => {
     // nextBtnRef.current.style = `opacity: ${opacity}`;
   };
 
+  const renderImages = () => {
+    imageObjs.forEach(({ index, ref }) => {
+      const isShowingImage = index === sentenceNum;
+      
+      if (isShowingImage){
+        console.log('isShowingImage, will show image')
+        ref.current.showImage();
+      }
+      else if (ref.current.isImageVisible()){ // image is shown
+        ref.current.hideImage();
+      }
+    });
+  };
+
+  const changeSentenceNumBy = (delta) => {
+    sentenceNum += delta;
+    setBtnOpacities();
+    renderImages();
+  };
+
   const setBtnOpacities = () => {
     setPreviousBtnOpacity();
     setNextBtnOpacity();
@@ -73,17 +102,23 @@ const Index = () => {
   const onClickPrevious = () => {
     if (sentenceNum > 1) {
       typingRef.current.rewind();
-      sentenceNum -= 1;
-      setBtnOpacities();
+      changeSentenceNumBy(-1);
     }
   };
   const onClickNext = () => {
     if (sentenceNum < paragraphs.length) {
       typingRef.current.unpause();
-      sentenceNum += 1;
-      setBtnOpacities();
+      changeSentenceNumBy(+1);
     }
   };
+
+  useEffect(() => {
+    console.log('using effect')
+    renderImages();
+  }, [])
+
+  // console.log('using effect')
+  
 
   return (
     <div
