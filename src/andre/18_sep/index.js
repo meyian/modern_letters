@@ -7,7 +7,6 @@ import css from "@emotion/css/macro";
 import gsap from "gsap";
 
 import Typing from "../../shared_components/typing";
-import BorderedWord from "../../shared_components/bordered_word";
 import styled from "@emotion/styled";
 import NextArrow from "../../shared_components/next_arrow";
 import PreviousArrow from "../../shared_components/previous_arrow";
@@ -15,25 +14,27 @@ import PreviousArrow from "../../shared_components/previous_arrow";
 import AnimatedImage from "../../shared_components/animated_image";
 
 import image1Src from "../../images/andre.18sep/image1.png";
+import image2Src from "../../images/andre.18sep/image2.png";
+import image3Src from "../../images/andre.18sep/image3.png";
 
-// const paragraphs = [
-//   'Hey André!',
-//   `Thank you so much for your letter and your encouraging comments and feedback on my "piece"! I feel grateful to have your thoughtful reaction to my software art performance. I was literally on Cloud 9 when you wrote, because now I knew that I hadn't wasted your time showing it to you. Maybe one day my work might find an audience, after all. Isn't that the dream for all of us artists, never mind the money? Just give us some kind of cushion made of human arms to fall backwards into whenever we have to ask ourselves if our work matters. Even though we've never talked about this directly - and we should! - I'm sure you're similar to me in this way, and you also would like the public at large to see the work you've done. What would be the message you'd want your art to get out first?`,
-//   `I have so much to learn from your reaction to my piece - for example, there is a total of only 3 "thoughts", so you did indeed see them all. I was only toying with my audience's expectations. Maybe if I made it clearer that there were only 3 thoughts, the final thought reveal would make it clear that I never intended to leave my audience hanging - I was only teasing by making you choose 2 at the beginning.`,
-//   `Anyway, here's a new one! Basic, but you know, everything's a start. I'll hesitate to say more at this point, in anticipation of your forthcoming letter, but I hope your luck with the job market turns around for you. Life is tough business, isn't it? A friend of mine says that if you're alive and you say you're not struggling, you're lying. Jobwise, I'm sweating it out over here too in my own way, but I'll persevere - I'm sure I have many more fights in me to go.`,
-//   `Stay well, my friend,`,
-//   `Hassan`
-// ]
+import "./main.css";
 
 const paragraphs = [
-  "The light of a candle",
-  "Is transferred to another candle—",
-  "Spring twilight",
+  "Hey André!",
+  "(First, a word of warning - try not to click the arrows while typing or deleting is going on - that breaks things...)",
+  `Thank you so much for your letter and your encouraging comments and feedback on my "piece"! I feel grateful to have your thoughtful reaction to it. I was literally on Cloud 9 when you wrote, because now I knew that I hadn't wasted your time showing it to you. Maybe one day my work might find an audience, after all. Isn't that the dream for all of us artists, never mind the money? Just give us some kind of net made of human arms to fall backwards into whenever we have to ask ourselves if our work matters? Even though we've never talked about this directly - and we should! - I'm sure you're similar to me in this way, and you also would like the public at large to see the work you've done. What would be the message you'd want your art to get out first?`,
+  `I have so much to learn from your reaction to my interactive letter - for example, there is a total of only 3 "thoughts", so you did indeed see them all. That was me only toying with my audience's expectations. Maybe if I made it clearer that there were only 3 thoughts, the final thought reveal would make it clear that I never intended to leave my audience hanging - I was only teasing by making you choose 2 at the beginning.`,
+  `Anyway, here's a new one! Basic, but you know, everything's a start. I'll hesitate to say more at this point, in anticipation of your forthcoming letter, but I hope you land the SAT tutoring job! Life is some tough business, isn't it? A friend of mine says that if you're alive and you say you're not struggling, you're lying. Jobwise, I'm sweating it out over here too in my own way, but I'll do my best to hang on - I'm sure I have many more fights in me to go.`,
+  `Stay well and cheerful,`,
+  `Hassan`,
 ];
 
 const StyledTypedParagraph = styled(Typing)`
   width: 500px;
   height: 250px;
+  font-family: "Bree Serif", serif;
+  color: #673ab7;
+  font-size: 1.1rem;
 `;
 
 let sentenceNum = 1;
@@ -42,21 +43,37 @@ const Index = () => {
   const typingRef = useRef();
   const previousBtnRef = useRef();
   const nextBtnRef = useRef();
-  const image1Ref = useRef();
 
-  const image1 = (
+  const image1Ref = useRef();
+  const image2Ref = useRef();
+  const image3Ref = useRef();
+
+  const imageData = [
+    { index: 1, src: image1Src, ref: image1Ref },
+    { index: 3, src: image2Src, ref: image2Ref },
+    { index: 5, src: image3Src, ref: image3Ref },
+  ];
+
+  const makeImage = (index, src, ref) => (
     <AnimatedImage
-      ref={image1Ref}
+      ref={ref}
       css={css`
         position: absolute;
-        left: 300px;
+        left: 500px;
         top: 0;
       `}
-      src={image1Src}
+      src={src}
+      index={index}
     />
   );
 
-  const imageObjs = [{ index: 1, ref: image1Ref }];
+  const images = imageData.map((data) =>
+    makeImage(data.index, data.src, data.ref)
+  );
+  const imageObjs = imageData.map((data) => ({
+    index: data.index,
+    ref: data.ref,
+  }));
 
   const blurBtns = () => {
     console.log("blurring");
@@ -76,13 +93,13 @@ const Index = () => {
 
   const renderImages = () => {
     imageObjs.forEach(({ index, ref }) => {
-      const isShowingImage = index === sentenceNum;
-      
-      if (isShowingImage){
-        console.log('isShowingImage, will show image')
+      const isShowingImage = ref.current.index() === sentenceNum;
+
+      if (isShowingImage) {
+        console.log("isShowingImage, will show image");
         ref.current.showImage();
-      }
-      else if (ref.current.isImageVisible()){ // image is shown
+      } else if (ref.current.isImageVisible()) {
+        // image is shown
         ref.current.hideImage();
       }
     });
@@ -110,46 +127,53 @@ const Index = () => {
       typingRef.current.unpause();
       changeSentenceNumBy(+1);
     }
+    else if (sentenceNum === paragraphs.length){
+      gsap.to(previousBtnRef.current, { opacity: 0, duration: 0.5 });
+    }
   };
 
   useEffect(() => {
-    console.log('using effect')
+    console.log("using effect");
     renderImages();
-  }, [])
+  }, []);
 
   // console.log('using effect')
-  
 
   return (
     <div
       css={css`
         position: relative;
+        left: 1rem;
+        top: 1rem;
       `}
     >
+      <div>
+        <PreviousArrow
+          ref={previousBtnRef}
+          css={css`
+            opacity: 0;
+          `}
+          onClick={onClickPrevious}
+        />
+        {/* <button ref={nextBtnRef} onClick={onClickNext}>next</button> */}
+        <NextArrow
+          ref={nextBtnRef}
+          onClick={onClickNext}
+          css={css`
+            margin-left: 1rem;
+          `}
+        />
+      </div>
       <StyledTypedParagraph
         onWhileTyping={blurBtns}
         onFinishTyping={setBtnOpacities}
         words={paragraphs}
-        onSetRef={(ref) => {
-          typingRef.current = ref;
+        onSetRef={(elem) => {
+          typingRef.current = elem;
         }}
       />
-      <PreviousArrow
-        ref={previousBtnRef}
-        css={css`
-          opacity: 0;
-        `}
-        onClick={onClickPrevious}
-      />
-      {/* <button ref={nextBtnRef} onClick={onClickNext}>next</button> */}
-      <NextArrow
-        ref={nextBtnRef}
-        onClick={onClickNext}
-        css={css`
-          margin-left: 1rem;
-        `}
-      />
-      {image1}
+
+      {images}
     </div>
   );
 };
@@ -177,7 +201,7 @@ Todo
 
 Unsorted Features
 
-* Fade in the images
++ Fade in the images
 * fade out the buttons while typing
 * Add music/
 * Change the font
@@ -190,3 +214,16 @@ Asides
 Whenever you get lost, write! That's being fruitful.
 
 */
+
+
+
+// const paragraphs = [
+//   "The light of a candle",
+//   "Is transferred to another candle—",
+//   "Spring twilight",
+//   "- Yosa Buson",
+//   "You, yourself, as much as anybody",
+//   "in the entire universe, deserve",
+//   "your love and affection.",
+// ];
+

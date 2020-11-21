@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import React, { useImperativeHandle } from "react";
+import React, { useImperativeHandle, useEffect } from "react";
 import { jsx } from "@emotion/core";
 // import css from "@emotion/css/macro";
 import gsap from "gsap";
@@ -14,30 +14,31 @@ const StyledImage = styled.img`
 `;
 
 const AnimatedImage = React.forwardRef((props, ref) => {
+  const id = `image-${Math.random()}`;
+  
   useImperativeHandle(ref, () => ({
+    index(){
+      return props.index
+    },
     showImage() {
-      console.log('ref');
-      console.log(ref);
-      gsap.from(ref.current, { opacity: 0, x: 100, duration: 0.5 });
+      const elem = document.getElementById(id);
+      gsap.fromTo(elem, { opacity: 0, x: 100, duration: 0.5 }, {opacity: 1, x: 0});
     },
     hideImage() {
-      gsap.to(ref.current, { opacity: 0, duration: 0.2 });
+      const elem = document.getElementById(id);
+      gsap.to(elem, { opacity: 0, duration: 0.2 });
     },
-    isImageVisible(){
-      console.log('ref');
-      console.log(ref);
-      const opacity = parseInt(window.getComputedStyle(ref.current).getPropertyValue("opacity"));
-      return opacity > 0
-    }
+    isImageVisible() {
+      const elem = document.getElementById(id);
+
+      const opacity = parseInt(
+        window.getComputedStyle(elem).getPropertyValue("opacity")
+      );
+      return opacity > 0;
+    },
   }));
 
-  return (
-    <StyledImage
-      ref={ref}
-      className={props.className}
-      src={props.src}
-    />
-  );
+  return <StyledImage id={id} className={props.className} src={props.src} />;
 });
 
 export default AnimatedImage;
