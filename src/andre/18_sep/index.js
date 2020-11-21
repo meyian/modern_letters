@@ -24,7 +24,7 @@ const paragraphs = [
   "(First, a word of warning - try not to click the arrows while typing or deleting is going on - that breaks things...)",
   `Thank you so much for your letter and your encouraging comments and feedback on my "piece"! I feel grateful to have your thoughtful reaction to it. I was literally on Cloud 9 when you wrote, because now I knew that I hadn't wasted your time showing it to you. Maybe one day my work might find an audience, after all. Isn't that the dream for all of us artists, never mind the money? Just give us some kind of net made of human arms to fall backwards into whenever we have to ask ourselves if our work matters? Even though we've never talked about this directly - and we should! - I'm sure you're similar to me in this way, and you also would like the public at large to see the work you've done. What would be the message you'd want your art to get out first?`,
   `I have so much to learn from your reaction to my interactive letter - for example, there is a total of only 3 "thoughts", so you did indeed see them all. That was me only toying with my audience's expectations. Maybe if I made it clearer that there were only 3 thoughts, the final thought reveal would make it clear that I never intended to leave my audience hanging - I was only teasing by making you choose 2 at the beginning.`,
-  `Anyway, here's a new one! Basic, but you know, everything's a start. I'll hesitate to say more at this point, in anticipation of your forthcoming letter, but I hope you land the SAT tutoring job! Life is some tough business, isn't it? A friend of mine says that if you're alive and you say you're not struggling, you're lying. Jobwise, I'm sweating it out over here too in my own way, but I'll do my best to hang on - I'm sure I have many more fights in me to go.`,
+  `Anyway, here's a new one! Basic, but you know, everything's a start. I'll hesitate to say more at this point, in anticipation of your forthcoming letter, but I hope you land that SAT tutoring job! Keeping my fingers crossed for you. Life is some tough business, isn't it? A friend of mine says that if you're alive and you say you're not struggling, you're lying. Jobwise, I'm sweating it out over here too in my own way, but I'll do my best to hang on - I'm sure I have many more fights in me to go.`,
   `Stay well and cheerful,`,
   `Hassan`,
 ];
@@ -75,20 +75,18 @@ const Index = () => {
     ref: data.ref,
   }));
 
-  const blurBtns = () => {
-    console.log("blurring");
-  };
-
   const setPreviousBtnOpacity = () => {
-    const opacity = sentenceNum > 1 ? 1 : 0;
-    gsap.to(previousBtnRef.current, { opacity, duration: 0.5 });
-    // previousBtnRef.current.style = `opacity: ${opacity}`;
+    if (sentenceNum === paragraphs.length) {
+      gsap.to(previousBtnRef.current, { opacity: 0, duration: 0.5 });
+    } else {
+      const opacity = sentenceNum > 1 ? 1 : 0;
+      gsap.to(previousBtnRef.current, { opacity, duration: 0.5 });
+    }
   };
 
   const setNextBtnOpacity = () => {
     const opacity = sentenceNum < paragraphs.length ? 1 : 0;
     gsap.to(nextBtnRef.current, { opacity, duration: 0.5 });
-    // nextBtnRef.current.style = `opacity: ${opacity}`;
   };
 
   const renderImages = () => {
@@ -107,6 +105,7 @@ const Index = () => {
 
   const changeSentenceNumBy = (delta) => {
     sentenceNum += delta;
+
     setBtnOpacities();
     renderImages();
   };
@@ -123,12 +122,11 @@ const Index = () => {
     }
   };
   const onClickNext = () => {
+    console.log("baz");
     if (sentenceNum < paragraphs.length) {
+      console.log("bar");
       typingRef.current.unpause();
       changeSentenceNumBy(+1);
-    }
-    else if (sentenceNum === paragraphs.length){
-      gsap.to(previousBtnRef.current, { opacity: 0, duration: 0.5 });
     }
   };
 
@@ -165,7 +163,6 @@ const Index = () => {
         />
       </div>
       <StyledTypedParagraph
-        onWhileTyping={blurBtns}
         onFinishTyping={setBtnOpacities}
         words={paragraphs}
         onSetRef={(elem) => {
@@ -180,6 +177,20 @@ const Index = () => {
 export default Index;
 
 /*
+
+Test Paragraphs
+
+const paragraphs = [
+  "The light of a candle",
+  "Is transferred to another candle—",
+  // "Spring twilight",
+  // "- Yosa Buson",
+  // "You, yourself, as much as anybody",
+  // "in the entire universe, deserve",
+  // "your love and affection.",
+];
+
+
 
 Todo
 
@@ -215,8 +226,6 @@ Whenever you get lost, write! That's being fruitful.
 
 */
 
-
-
 // const paragraphs = [
 //   "The light of a candle",
 //   "Is transferred to another candle—",
@@ -226,4 +235,3 @@ Whenever you get lost, write! That's being fruitful.
 //   "in the entire universe, deserve",
 //   "your love and affection.",
 // ];
-
