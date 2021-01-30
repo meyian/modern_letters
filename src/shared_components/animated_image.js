@@ -11,18 +11,23 @@ const StyledImage = styled.img`
   width: 125px;
   height: auto;
   cursor: pointer;
+  opacity: 0;
 `;
 
 const AnimatedImage = React.forwardRef((props, ref) => {
   const id = `image-${Math.random()}`;
-  
+
   useImperativeHandle(ref, () => ({
-    index(){
-      return props.index
+    index() {
+      return props.index;
     },
     showImage() {
       const elem = document.getElementById(id);
-      gsap.fromTo(elem, { opacity: 0, x: 100, duration: 0.5 }, {opacity: 1, x: 0});
+      gsap.fromTo(
+        elem,
+        { opacity: 0, x: 100, duration: 0.5 },
+        { opacity: 1, x: 0 }
+      );
     },
     hideImage() {
       const elem = document.getElementById(id);

@@ -49,7 +49,7 @@ const Index = () => {
   const image3Ref = useRef();
 
   const imageData = [
-    { index: 1, src: image1Src, ref: image1Ref },
+    { index: 2, src: image1Src, ref: image1Ref },
     { index: 3, src: image2Src, ref: image2Ref },
     { index: 5, src: image3Src, ref: image3Ref },
   ];
@@ -70,6 +70,7 @@ const Index = () => {
   const images = imageData.map((data) =>
     makeImage(data.index, data.src, data.ref)
   );
+
   const imageObjs = imageData.map((data) => ({
     index: data.index,
     ref: data.ref,

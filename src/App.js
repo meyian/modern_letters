@@ -4,19 +4,15 @@ import styled from "@emotion/styled";
 import css from "@emotion/css/macro";
 import React from "react";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Andre12Aug from './andre/12_aug';
-import Andre18Aug from './andre/18_sep';
-import Rushing from './waheed/rushing'
+import Andre12Aug from "./andre/12_aug";
+import Andre18Aug from "./andre/18_sep";
+import Rushing from "./waheed/rushing";
+import AllIWant from "./music_videos/all_i_want/index";
 
 // TODO: For Wyatt (SO INAGAWA - AIRIER (CABARET RECORDINGS))
-const BorderedPage = ({children, borderColor, left, right}) => (
+const BorderedPage = ({ children, borderColor, left, right }) => (
   <div
     css={css`
       height: 100vh;
@@ -24,7 +20,7 @@ const BorderedPage = ({children, borderColor, left, right}) => (
     `}
   >
     <div
-      className='bordered-div'
+      className="bordered-div"
       css={css`
         width: calc(100% - 1rem);
         height: calc(100% - 3rem);
@@ -45,7 +41,13 @@ const BorderedPage = ({children, borderColor, left, right}) => (
       >
         <Link to={left}>{"<"}</Link>
 
-        <h1 css={css`color: ${borderColor}`}>{children}</h1>
+        <h1
+          css={css`
+            color: ${borderColor};
+          `}
+        >
+          {children}
+        </h1>
 
         <Link to={right}>{">"}</Link>
       </div>
@@ -66,14 +68,26 @@ function App() {
         <Route path="/waheed-dey-rush">
           <Rushing />
         </Route>
+        <Route path="/waheed-dey-rush">
+          <Rushing />
+        </Route>
+        <Route path="/all-i-want">
+          <AllIWant />
+        </Route>
         <Route path="/red">
-        <BorderedPage borderColor="red" left="black" right="blue">Modern</BorderedPage>
+          <BorderedPage borderColor="red" left="black" right="blue">
+            Modern
+          </BorderedPage>
         </Route>
         <Route path="/blue">
-          <BorderedPage borderColor="blue" left="red" right="black">Letters</BorderedPage>
+          <BorderedPage borderColor="blue" left="red" right="black">
+            Letters
+          </BorderedPage>
         </Route>
         <Route path="/">
-          <BorderedPage borderColor="black" left="blue" right="red">Fancy</BorderedPage>
+          <BorderedPage borderColor="black" left="blue" right="red">
+            Fancy
+          </BorderedPage>
         </Route>
       </Switch>
     </Router>
