@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/modern_letters/static/css/main.87e05d0e.chunk.css",
+    "main.js": "/modern_letters/static/js/main.9cf5f724.chunk.js",
+    "main.js.map": "/modern_letters/static/js/main.9cf5f724.chunk.js.map",
+    "runtime-main.js": "/modern_letters/static/js/runtime-main.0e452342.js",
+    "runtime-main.js.map": "/modern_letters/static/js/runtime-main.0e452342.js.map",
+    "static/js/2.c8babf0d.chunk.js": "/modern_letters/static/js/2.c8babf0d.chunk.js",
+    "static/js/2.c8babf0d.chunk.js.map": "/modern_letters/static/js/2.c8babf0d.chunk.js.map",
+    "index.html": "/modern_letters/index.html",
+    "precache-manifest.e0f11d26cc86461055f64bb6a6edbf82.js": "/modern_letters/precache-manifest.e0f11d26cc86461055f64bb6a6edbf82.js",
+    "service-worker.js": "/modern_letters/service-worker.js",
+    "static/css/main.87e05d0e.chunk.css.map": "/modern_letters/static/css/main.87e05d0e.chunk.css.map",
+    "static/js/2.c8babf0d.chunk.js.LICENSE.txt": "/modern_letters/static/js/2.c8babf0d.chunk.js.LICENSE.txt",
+    "static/media/arrow.png": "/modern_letters/static/media/arrow.2e759bf5.png",
+    "static/media/draymond_green.203110.png": "/modern_letters/static/media/draymond_green.203110.25177a8c.png",
+    "static/media/end.png": "/modern_letters/static/media/end.325d1332.png",
+    "static/media/home.png": "/modern_letters/static/media/home.e0542d5e.png",
+    "static/media/image1.png": "/modern_letters/static/media/image1.cec5d603.png",
+    "static/media/image2.png": "/modern_letters/static/media/image2.a46817b4.png",
+    "static/media/image3.png": "/modern_letters/static/media/image3.f01105f8.png",
+    "static/media/kevin_durant.201142.png": "/modern_letters/static/media/kevin_durant.201142.2803ebc0.png",
+    "static/media/one.png": "/modern_letters/static/media/one.d526af93.png",
+    "static/media/page0.png": "/modern_letters/static/media/page0.a6ef98c0.png",
+    "static/media/page1.png": "/modern_letters/static/media/page1.f5de3dcf.png",
+    "static/media/page2.png": "/modern_letters/static/media/page2.359fbcd6.png",
+    "static/media/scrolling.gif": "/modern_letters/static/media/scrolling.f1142b98.gif",
+    "static/media/the_view.png": "/modern_letters/static/media/the_view.acc24c4c.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0e452342.js",
+    "static/js/2.c8babf0d.chunk.js",
+    "static/css/main.87e05d0e.chunk.css",
+    "static/js/main.9cf5f724.chunk.js"
+  ]
+}
