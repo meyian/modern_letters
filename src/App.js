@@ -10,6 +10,7 @@ import Andre12Aug from "./andre/12_aug";
 import Andre18Aug from "./andre/18_sep";
 import Rushing from "./waheed/rushing";
 import AllIWant from "./music_videos/all_i_want/index";
+import One from "./andre/28_feb_2021";
 
 // TODO: For Wyatt (SO INAGAWA - AIRIER (CABARET RECORDINGS))
 const BorderedPage = ({ children, borderColor, left, right }) => (
@@ -73,6 +74,9 @@ function App() {
         </Route>
         <Route path="/all-i-want">
           <AllIWant />
+        </Route>
+        <Route path="/one">
+          <One />
         </Route>
         <Route path="/red">
           <BorderedPage borderColor="red" left="black" right="blue">

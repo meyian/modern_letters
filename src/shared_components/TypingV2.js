@@ -3,29 +3,33 @@
 import React, { useRef, useEffect } from "react";
 
 import { jsx } from "@emotion/core";
-import Typed from "../lib/typed/typed.js";
+import Typed from "../lib/typed/typed.v1.js";
 
-const Typing = ({ className, options, words, onSetRef }) => {
+const TypingV2 = ({ className, id, options, words, onSetRef }) => {
   words = words || [];
 
-  options = options || {
+  options = {
     strings: words,
     typeSpeed: 20,
-    backSpeed: 5,
+    backSpeed: 1,
     loop: true,
     cursorChar: "|",
+    ...options,
   };
 
-  options["strings"] = words;
+  // options["strings"] = words;
 
   const typedSpan = useRef();
 
   useEffect(() => {
     const elem = typedSpan.current;
     elem.typed = new Typed(elem, options);
+
     if (onSetRef) {
       onSetRef(elem.typed);
     }
+
+    elem.typed.stop();
 
     // Please don't forget to cleanup animation layer
     return () => {
@@ -34,9 +38,9 @@ const Typing = ({ className, options, words, onSetRef }) => {
   });
 
   return (
-    <div className={className}>
+    <div id={id} className={className}>
       <span ref={typedSpan} />
     </div>
   );
 };
-export default Typing;
+export default TypingV2;

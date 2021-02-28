@@ -1,4 +1,4 @@
-import defaults from './defaults.js';
+import defaults from "./defaults.js";
 /**
  * Initialize the Typed object
  */
@@ -14,7 +14,7 @@ export default class Initializer {
 
   load(self, options, elementId) {
     // chosen element to manipulate text
-    if (typeof elementId === 'string') {
+    if (typeof elementId === "string") {
       self.el = document.querySelector(elementId);
     } else {
       self.el = elementId;
@@ -23,7 +23,7 @@ export default class Initializer {
     self.options = { ...defaults, ...options };
 
     // attribute to type into
-    self.isInput = self.el.tagName.toLowerCase() === 'input';
+    self.isInput = self.el.tagName.toLowerCase() === "input";
     self.attr = self.options.attr;
     self.bindInputFocusEvents = self.options.bindInputFocusEvents;
 
@@ -71,7 +71,7 @@ export default class Initializer {
     self.strings = self.options.strings.map((s) => s.trim());
 
     // div containing strings
-    if (typeof self.options.stringsElement === 'string') {
+    if (typeof self.options.stringsElement === "string") {
       self.stringsElement = document.querySelector(self.options.stringsElement);
     } else {
       self.stringsElement = self.options.stringsElement;
@@ -79,7 +79,7 @@ export default class Initializer {
 
     if (self.stringsElement) {
       self.strings = [];
-      self.stringsElement.style.display = 'none';
+      self.stringsElement.style.display = "none";
       const strings = Array.prototype.slice.apply(self.stringsElement.children);
       const stringsLength = strings.length;
 
@@ -113,8 +113,8 @@ export default class Initializer {
     self.pause = {
       status: false,
       typewrite: true,
-      curString: '',
-      curStrPos: 0
+      curString: "",
+      curStrPos: 0,
     };
 
     // When the typing is complete (when not looped)
@@ -134,12 +134,12 @@ export default class Initializer {
   }
 
   getCurrentElContent(self) {
-    let elContent = '';
+    let elContent = "";
     if (self.attr) {
       elContent = self.el.getAttribute(self.attr);
     } else if (self.isInput) {
       elContent = self.el.value;
-    } else if (self.contentType === 'html') {
+    } else if (self.contentType === "html") {
       elContent = self.el.innerHTML;
     } else {
       elContent = self.el.textContent;
@@ -148,7 +148,7 @@ export default class Initializer {
   }
 
   appendAnimationCss(self) {
-    const cssDataName = 'data-typed-js-css';
+    const cssDataName = "data-typed-js-css";
     if (!self.autoInsertCss) {
       return;
     }
@@ -159,11 +159,11 @@ export default class Initializer {
       return;
     }
 
-    let css = document.createElement('style');
-    css.type = 'text/css';
+    let css = document.createElement("style");
+    css.type = "text/css";
     css.setAttribute(cssDataName, true);
 
-    let innerCss = '';
+    let innerCss = "";
     if (self.showCursor) {
       innerCss += `
         .typed-cursor{

@@ -147,7 +147,7 @@ export default class Typed {
       // skip over any HTML chars
       curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
 
-      let pauseTime = 0;
+      let pauseTime = 100 / this.typeSpeed;
       let substr = curString.substr(curStrPos);
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^

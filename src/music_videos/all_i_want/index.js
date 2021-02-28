@@ -7,17 +7,23 @@ import webAudioPlayer from "web-audio-player";
 import Dilla from "dilla";
 import gsap from "gsap";
 
-import React, { useState, useEffect } from "react";
+import TypingV2 from "../../shared_components/TypingV2";
+
+import React, { useState, useEffect, useRef } from "react";
 
 const songFile = "/sounds/All I Want (Original Mix).mp3";
 
+const intro = `This is a song I very much enjoy, and I was listening to it while messing around with my computer when the idea of bringing this song to you in a format like this struck me like lightning hitting Thor's hammer. (At least, that what it felt like.) You see, I love music and music videos, but the thought of trying to make one with the only tools I have -- programming tools -- never occurred to me before. I hope to make many more of these, and with enough practice, maybe one day I might be things like these for actual musicians who want interactive pieces like these. Anyway, here goes..`;
+
 let audio;
+let typedRef;
 let audioContext = new AudioContext();
 let dilla = new Dilla(audioContext, {
   tempo: 116,
   beatsPerBar: 4,
   loopLength: 200,
 });
+let shouldBounceKick;
 
 const bounceOpacity = ({ elementId, duration }) => {
   const tl = gsap.timeline();
@@ -43,20 +49,51 @@ const StyledButton = styled.button`
   }
 `;
 
+const Slide = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+`;
+
+const fadeOutKick = ({ onCompleteCallback }) => {
+  gsap.to(document.getElementById("kick-circle__wrapper"), {
+    opacity: 0,
+    duration: 5,
+    onComplete: onCompleteCallback,
+  });
+};
+
+const startTypingIntro = () => {
+  typedRef.current.toggle();
+};
+
+const killBouncingKick = () => {
+  shouldBounceKick = false;
+};
+
 const events = {
   "1.1.01": {
     name: "a1.start_kick",
     position: "*.*.01",
-    function: () => {},
+    function: () => {
+      shouldBounceKick = true;
+    },
   },
-  "8.1.01": {
+  "5.1.01": {
     name: "b2.fade_out_kick",
     position: "8.1.01",
+
+    // bookmark
+
     function: () => {
-      console.log("fading out...");
-      gsap.to(document.getElementById("kick-circle__wrapper"), {
-        opacity: 0,
-        duration: 5,
+      fadeOutKick({
+        onCompleteCallback: () => {
+          killBouncingKick();
+          // hidePlayButton();
+          startTypingIntro();
+        },
       });
     },
   },
@@ -74,8 +111,9 @@ const initMetronome = () => {
     console.log("step");
     console.log(step);
 
-    bounceOpacity({ elementId: "kick-circle", duration: 0.2 });
-
+    if (shouldBounceKick) {
+      bounceOpacity({ elementId: "kick-circle", duration: 0.2 });
+    }
     // if (step.event === "start") {
     let event;
     //   console.log("kick");
@@ -91,6 +129,7 @@ const AllIWant = () => {
   const [hasAudioFileLoaded, setHasAudioFileLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFirstPlay, setIsFirstPlay] = useState(true);
+  typedRef = useRef(null);
 
   const playButton = (
     <StyledButton
@@ -147,30 +186,32 @@ const AllIWant = () => {
         width: 100%;
         height: 100vh;
         position: relative;
+        background-color: white;
       `}
     >
-      <div
+      <Slide
+        id="intro-text-wrapper"
         css={css`
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100vh;
           display: flex;
           justify-content: center;
-          align-items: baseline;
-          background-color: white;
+          align-items: center;
         `}
       >
-        <div
+        <TypingV2
+          id="intro-text"
           css={css`
-            position: relative;
-            top: 2rem;
+            width: 40rem;
+            height: 14rem;
+            border: 2px dotted orange;
+            font-weight: 500;
           `}
-        >
-          {loadingOrPlayOrPauseButton}
-        </div>
-      </div>
+          options={{ typeSpeed: 3 }}
+          onSetRef={(typed) => {
+            typedRef.current = typed;
+          }}
+          words={[intro]}
+        />
+      </Slide>
       <div
         id="kick-circle__wrapper"
         css={css`
@@ -190,6 +231,23 @@ const AllIWant = () => {
           `}
         ></div>
       </div>
+      <Slide
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: baseline;
+          height: 6rem;
+        `}
+      >
+        <div
+          css={css`
+            position: relative;
+            top: 2rem;
+          `}
+        >
+          {loadingOrPlayOrPauseButton}
+        </div>
+      </Slide>
     </div>
   );
 };
@@ -210,11 +268,21 @@ Todo
     - dilla console metronome
     - gsap orange circle
   - sync to the beat
+= Intro
+  + type out my messgae
+  = Speed things up, by having only one animation at a time
+  - fade in the tree
 * Get lyrics to follow the song
 * Add images
   - preloading them
 * Time questions
 * Play videos
+
+
+
+
+
+
 
 
 ---- Asides ----
@@ -224,6 +292,17 @@ To do:
 + GSap
   + circle fading in and out
 * Intro
+
+-- Mon 1 Feb --
+
+Todo
+
+* Replace Dilla, eventually
+= Promisify 
+* Hide the the pause button while typing
+* Fade in the tree after typing done
+
+
 
 -- Sat 30 Jan --
 
