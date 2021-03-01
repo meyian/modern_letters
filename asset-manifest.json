@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/modern_letters/static/css/main.87e05d0e.chunk.css",
-    "main.js": "/modern_letters/static/js/main.ddcbff21.chunk.js",
-    "main.js.map": "/modern_letters/static/js/main.ddcbff21.chunk.js.map",
+    "main.js": "/modern_letters/static/js/main.6a7a67e5.chunk.js",
+    "main.js.map": "/modern_letters/static/js/main.6a7a67e5.chunk.js.map",
     "runtime-main.js": "/modern_letters/static/js/runtime-main.0e452342.js",
     "runtime-main.js.map": "/modern_letters/static/js/runtime-main.0e452342.js.map",
     "static/js/2.226faa51.chunk.js": "/modern_letters/static/js/2.226faa51.chunk.js",
     "static/js/2.226faa51.chunk.js.map": "/modern_letters/static/js/2.226faa51.chunk.js.map",
     "index.html": "/modern_letters/index.html",
-    "precache-manifest.8a9defa001956774e8cf4e2f93620219.js": "/modern_letters/precache-manifest.8a9defa001956774e8cf4e2f93620219.js",
+    "precache-manifest.15f39438ffea5e7e65d52cceeebbf507.js": "/modern_letters/precache-manifest.15f39438ffea5e7e65d52cceeebbf507.js",
     "service-worker.js": "/modern_letters/service-worker.js",
     "static/css/main.87e05d0e.chunk.css.map": "/modern_letters/static/css/main.87e05d0e.chunk.css.map",
     "static/js/2.226faa51.chunk.js.LICENSE.txt": "/modern_letters/static/js/2.226faa51.chunk.js.LICENSE.txt",
@@ -31,6 +31,6 @@
     "static/js/runtime-main.0e452342.js",
     "static/js/2.226faa51.chunk.js",
     "static/css/main.87e05d0e.chunk.css",
-    "static/js/main.ddcbff21.chunk.js"
+    "static/js/main.6a7a67e5.chunk.js"
   ]
 }
